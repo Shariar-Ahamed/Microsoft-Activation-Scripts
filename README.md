@@ -1,7 +1,7 @@
 <h1 align="center">Microsoft Activation Scripts (MAS)</h1>
 
 <p align="center">
-  <img src="Picture.png" alt="Microsoft Activation Scripts" width="600">
+  <img src="https://i.postimg.cc/HWRH4rBx/Full-(1).png" alt="Microsoft Activation Scripts">
 </p>
 
 <p align="center">
