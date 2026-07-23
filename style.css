@@ -236,6 +236,7 @@ main {
   width: 100%;
   height: auto;
   display: block;
+  border-radius: 12px;
   transition: transform var(--transition-normal);
 }
 
@@ -288,6 +289,7 @@ main {
   letter-spacing: -0.03em;
   margin-bottom: 1rem;
   background: linear-gradient(135deg, var(--text-primary) 30%, rgba(var(--brand-primary-rgb), 0.8) 100%);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   line-height: 1.1;
