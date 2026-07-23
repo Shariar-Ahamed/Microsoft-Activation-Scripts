@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Microsoft Activation Scripts (MAS) - Guide</title>
+  <meta name="description" content="A comprehensive, clean guide to activating Windows, Microsoft Office, and ESU using Microsoft Activation Scripts (MAS) via PowerShell or Traditional Method.">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Ambient Glow Effects -->
+  <div class="ambient-glow-1"></div>
+  <div class="ambient-glow-2"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="#" class="logo">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0h11.2v11.2H0zm12.8 0H24v11.2H12.8zM0 12.8h11.2V24H0zm12.8 0H24V24H12.8z"/>
+        </svg>
+        <span>MAS Activation Guide</span>
+      </a>
+      
+      <div class="nav-actions">
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" class="icon-btn" aria-label="Toggle light/dark theme">
+          <svg class="moon-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <svg class="sun-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+
+        <!-- GitHub Link -->
+        <a href="https://github.com/Shariar-Ahamed/Microsoft-Activation-Scripts" target="_blank" rel="noopener" class="icon-btn" aria-label="GitHub Repository">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-banner-wrapper">
+        <img src="Picture.png" alt="Microsoft Activation Scripts Logo" class="hero-banner">
+      </div>
+      <div class="badge-container">
+        <span class="badge badge-windows">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M0 0h11.2v11.2H0zm12.8 0H24v11.2H12.8zM0 12.8h11.2V24H0zm12.8 0H24V24H12.8z"/></svg>
+          Windows 8.1 / 10 / 11
+        </span>
+        <span class="badge badge-office">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="15"></line><line x1="15" y1="9" x2="9" y2="15"></line></svg>
+          Office Supported
+        </span>
+        <span class="badge badge-license">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          Open Source
+        </span>
+      </div>
+      <h1>Microsoft Activation Scripts (MAS)</h1>
+      <p>An open-source activation utility for Windows and Microsoft Office, featuring HWID, Ohook, TSforge, and Online KMS activation methods. Also includes diagnostics and advanced troubleshooting tools.</p>
+    </section>
+
+    <!-- Method Selection Tab Bar -->
+    <div id="activation-methods" class="tabs-wrapper">
+      <div class="tabs-nav" role="tablist">
+        <button class="tab-btn active" id="tab-ps" role="tab" aria-selected="true" aria-controls="content-ps" onclick="switchTab('ps')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="4 17 10 11 4 5"></polyline>
+            <line x1="12" y1="19" x2="20" y2="19"></line>
+          </svg>
+          PowerShell (Recommended)
+        </button>
+        <button class="tab-btn" id="tab-trad" role="tab" aria-selected="false" aria-controls="content-trad" onclick="switchTab('trad')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Traditional Method
+        </button>
+      </div>
+
+      <!-- TAB 1: PowerShell Method -->
+      <div class="tab-content active" id="content-ps" role="tabpanel" aria-labelledby="tab-ps">
+        <div class="method-card">
+          <div class="method-header">
+            <div class="method-title-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              <h3 class="method-title">PowerShell Activation Method</h3>
+            </div>
+            <span class="recommended-badge">Recommended</span>
+          </div>
+
+          <div class="stepper">
+            <!-- Step 1 -->
+            <div class="step-item">
+              <div class="step-badge-col">
+                <div class="step-number">1</div>
+                <div class="step-line"></div>
+              </div>
+              <div class="step-content">
+                <h4 class="step-title">Open the Start Menu</h4>
+                <p class="step-desc">Click on the Windows Start menu or press the Windows key on your keyboard.</p>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-item">
+              <div class="step-badge-col">
+                <div class="step-number">2</div>
+                <div class="step-line"></div>
+              </div>
+              <div class="step-content">
+                <h4 class="step-title">Search for PowerShell</h4>
+                <p class="step-desc">Type <strong>PowerShell</strong> in the search bar. There is no strict requirement for Administrator privileges for the recommended method, but running it as Administrator yields the best compatibility.</p>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-item">
+              <div class="step-badge-col">
+                <div class="step-number">3</div>
+                <div class="step-line"></div>
+              </div>
+              <div class="step-content">
+                <h4 class="step-title">Execute the Command</h4>
+                <p class="step-desc">Copy and paste the command below into the PowerShell window, and then press <strong>Enter</strong>.</p>
+                
+                <!-- Code Block -->
+                <div class="code-container">
+                  <div class="code-header">
+                    <span class="code-lang">PowerShell</span>
+                    <button class="copy-btn" onclick="copyCommand('cmd-main', this)">
+                      <svg viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                      <span>Copy</span>
+                    </button>
+                  </div>
+                  <div class="code-body">
+                    <pre><code id="cmd-main"><span class="code-keyword">irm</span> <span class="code-string">https://get.activated.win</span> | <span class="code-keyword">iex</span></code></pre>
+                  </div>
+                </div>
+
+                <!-- Alternative Command Drawer -->
+                <div class="alt-cmd-wrapper">
+                  <button class="alt-toggle-btn" onclick="toggleAltCmd()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    Alternative Command (If blocked by DNS/ISP)
+                  </button>
+                  <div class="alt-content" id="alt-cmd-container">
+                    <p class="step-desc" style="margin-top: 0.5rem; font-size: 0.85rem;">This fallback command resolves DNS queries via Cloudflare over HTTPS if standard connections are restricted. Requires an updated Windows 10/11 system.</p>
+                    <div class="code-container">
+                      <div class="code-header">
+                        <span class="code-lang">PowerShell fallback</span>
+                        <button class="copy-btn" onclick="copyCommand('cmd-alt', this)">
+                          <svg viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                          <span>Copy</span>
+                        </button>
+                      </div>
+                      <div class="code-body">
+                        <pre><code id="cmd-alt"><span class="code-keyword">iex</span> (<span class="code-keyword">curl.exe</span> -s --doh-url <span class="code-string">https://1.1.1.1/dns-query</span> <span class="code-string">https://get.activated.win</span> | <span class="code-function">Out-String</span>)</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-item">
+              <div class="step-badge-col">
+                <div class="step-number">4</div>
+                <div class="step-line"></div>
+              </div>
+              <div class="step-content">
+                <h4 class="step-title">Select Activation Option</h4>
+                <p class="step-desc">Once the terminal menu screen displays, input the numeric key corresponding to the desired <strong>Green</strong> activation method.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Walkthrough Screenshots Grid -->
+          <div id="walkthrough" class="screenshot-section">
+            <h4 class="section-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                <polyline points="21 15 16 10 5 21"></polyline>
+              </svg>
+              Interactive Process Walkthrough
+            </h4>
+            <div class="gallery-grid">
+              <div class="gallery-item" data-src="https://i.postimg.cc/3xRbg0Lc/Screenshot-2026-05-31-080557.png">
+                <div class="image-container">
+                  <img src="https://i.postimg.cc/3xRbg0Lc/Screenshot-2026-05-31-080557.png" alt="Enter PowerShell command">
+                </div>
+                <div class="gallery-caption">1. PowerShell Command Entry</div>
+              </div>
+              <div class="gallery-item" data-src="https://i.postimg.cc/76dTQdDV/Screenshot-2026-05-31-081948.png">
+                <div class="image-container">
+                  <img src="https://i.postimg.cc/76dTQdDV/Screenshot-2026-05-31-081948.png" alt="Select activation method">
+                </div>
+                <div class="gallery-caption">2. Menu & Method Selection</div>
+              </div>
+              <div class="gallery-item" data-src="https://i.postimg.cc/fb5L1F7c/Screenshot-2026-05-31-081629.png">
+                <div class="image-container">
+                  <img src="https://i.postimg.cc/fb5L1F7c/Screenshot-2026-05-31-081629.png" alt="Activation script run">
+                </div>
+                <div class="gallery-caption">3. Activation Script Progress</div>
+              </div>
+              <div class="gallery-item" data-src="https://i.postimg.cc/ZnWC8cdr/Screenshot-2026-05-31-081500.png">
+                <div class="image-container">
+                  <img src="https://i.postimg.cc/ZnWC8cdr/Screenshot-2026-05-31-081500.png" alt="Activation success screen">
+                </div>
+                <div class="gallery-caption">4. Successful Activation</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- TAB 2: Traditional Method -->
+      <div class="tab-content" id="content-trad" role="tabpanel" aria-labelledby="tab-trad">
+        <div class="method-card">
+          <div class="method-header">
+            <div class="method-title-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+              <h3 class="method-title">Traditional Script Method</h3>
+            </div>
+          </div>
+
+          <div class="stepper">
+            <!-- Step 1 -->
+            <div class="step-item">
+              <div class="step-badge-col">
+                <div class="step-number">1</div>
+                <div class="step-line"></div>
+              </div>
+              <div class="step-content">
+                <h4 class="step-title">Download the Script File</h4>
+                <p class="step-desc">If the PowerShell method is blocked or fails on your system, download the script files directly.</p>
+                
+                <div class="download-grid">
+                  <!-- Download Option 1 -->
+                  <div class="download-card">
+                    <div class="download-info">
+                      <div class="download-icon-wrapper">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                      </div>
+                      <div class="download-details">
+                        <h4>MAS_AIO.cmd</h4>
+                        <p>Standalone command script containing the entire activation tool suite.</p>
+                      </div>
+                    </div>
+                    <a href="https://dev.azure.com/massgrave/Microsoft-Activation-Scripts/_apis/git/repositories/Microsoft-Activation-Scripts/items?path=/MAS/All-In-One-Version-KL/MAS_AIO.cmd&download=true" class="download-btn">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                      Download Script (.cmd)
+                    </a>
+                  </div>
+
+                  <!-- Download Option 2 -->
+                  <div class="download-card">
+                    <div class="download-info">
+                      <div class="download-icon-wrapper">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                      </div>
+                      <div class="download-details">
+                        <h4>MAS_AIO.zip</h4>
+                        <p>Compressed ZIP archive. Recommended if your web browser blocks the direct .cmd script download.</p>
+                      </div>
+                    </div>
+                    <a href="https://dev.azure.com/massgrave/Microsoft-Activation-Scripts/_apis/git/repositories/Microsoft-Activation-Scripts/items?$format=zip" class="download-btn">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                      Download Archive (.zip)
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-item">
+              <div class="step-badge-col">
+                <div class="step-number">2</div>
+                <div class="step-line"></div>
+              </div>
+              <div class="step-content">
+                <h4 class="step-title">Run the Script</h4>
+                <p class="step-desc">Extract the ZIP file if downloaded, then double-click the <strong>MAS_AIO.cmd</strong> script. Run as Administrator if prompted to ensure full system access for the activation tool.</p>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-item">
+              <div class="step-badge-col">
+                <div class="step-number">3</div>
+                <div class="step-line"></div>
+              </div>
+              <div class="step-content">
+                <h4 class="step-title">Select Activation Method</h4>
+                <p class="step-desc">When the interactive menu script window pops up, enter the option number that correlates to one of the **Green** options matching your activation needs.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key Features Section -->
+    <section class="features-section">
+      <h3 class="section-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+          <polyline points="2 17 12 22 22 17"></polyline>
+          <polyline points="2 12 12 17 22 12"></polyline>
+        </svg>
+        Key Features
+      </h3>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">✓</div>
+          <div class="feature-info">
+            <h5>HWID Digital License</h5>
+            <p>Permanently activate supported Windows 10/11 editions bound to your hardware.</p>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">✓</div>
+          <div class="feature-info">
+            <h5>Office Ohook</h5>
+            <p>Permanently activate Microsoft Office suites locally without subscription checks.</p>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">✓</div>
+          <div class="feature-info">
+            <h5>Flexible KMS Activation</h5>
+            <p>Standard 180-day activation for Windows &amp; Office with automated renewal tasks.</p>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">✓</div>
+          <div class="feature-info">
+            <h5>Open Source &amp; Clean</h5>
+            <p>100% transparent batch script structure resulting in fewer antivirus detections.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Activations Summary Section -->
+    <section class="summary-section">
+      <h3 class="section-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        Activations Summary
+      </h3>
+      <div class="table-container">
+        <table class="summary-table">
+          <thead>
+            <tr>
+              <th>Activation Type</th>
+              <th>Supported Products</th>
+              <th>Activation Period</th>
+              <th>Requires Internet?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>HWID</strong></td>
+              <td>Windows 10, Windows 11</td>
+              <td><span class="badge-status permanent">Permanent</span></td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td><strong>Ohook</strong></td>
+              <td>Microsoft Office</td>
+              <td><span class="badge-status permanent">Permanent</span></td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td><strong>TSforge</strong></td>
+              <td>Windows, ESU, Office</td>
+              <td><span class="badge-status permanent">Permanent</span></td>
+              <td>Only for StaticCID (build 26100+)</td>
+            </tr>
+            <tr>
+              <td><strong>Online KMS</strong></td>
+              <td>Windows, Office</td>
+              <td><span class="badge-status temporary">180 Days</span><span class="note-sub">(Auto-renew option)</span></td>
+              <td>Yes</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Notes & Tips Grid -->
+    <section id="notes-tips" class="alerts-container">
+      <!-- Notes Box -->
+      <div class="alert-box alert-box-note">
+        <div class="alert-header">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          <h3 class="alert-title">Important Notes</h3>
+        </div>
+        <ul class="alert-list">
+          <li>An active internet connection is mandatory to connect to the digital license validation endpoints.</li>
+          <li>Some antivirus software might flag the script due to heuristic signatures. Temporarily disable protection if the script is blocked.</li>
+          <li>Running PowerShell or MAS_AIO with administrator privileges resolves permissions issues.</li>
+          <li>Ensure system versions and editions match the chosen activation algorithms (HWID, Ohook, KMS, ESU).</li>
+        </ul>
+      </div>
+
+      <!-- Tips Box -->
+      <div class="alert-box alert-box-tip">
+        <div class="alert-header">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+          </svg>
+          <h3 class="alert-title">Pro Tips</h3>
+        </div>
+        <ul class="alert-list">
+          <li><strong>HWID</strong> (Hardware ID) method is recommended for permanent activation of supported Windows editions.</li>
+          <li>Use the <strong>Ohook</strong> method specifically for stable and permanent Microsoft Office suite activations.</li>
+          <li>Restart your machine after the activation reports success to ensure core system policies reload correctly.</li>
+          <li>Verify your system properties in Windows Settings or Office Account settings to confirm successful status.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Reference / Official Links -->
+    <section class="links-section">
+      <h3 class="links-title">Official Resources</h3>
+      <div class="links-grid">
+        <a href="https://massgrave.dev/" target="_blank" rel="noopener" class="link-card-rich">
+          <div class="link-card-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+          </div>
+          <div class="link-card-info">
+            <h4>Official Website</h4>
+            <p>Access the main documentation, command references, and guides at massgrave.dev.</p>
+          </div>
+          <div class="link-card-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </div>
+        </a>
+
+        <a href="https://github.com/massgravel/Microsoft-Activation-Scripts" target="_blank" rel="noopener" class="link-card-rich">
+          <div class="link-card-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+          </div>
+          <div class="link-card-info">
+            <h4>GitHub Repository</h4>
+            <p>Inspect scripts, check changelogs, review commits, or star the project on GitHub.</p>
+          </div>
+          <div class="link-card-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-grid">
+        <!-- Logo & About Column -->
+        <div class="footer-col footer-about">
+          <a href="#" class="logo footer-logo">
+            <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="4 17 10 11 4 5"></polyline>
+              <line x1="12" y1="19" x2="20" y2="19"></line>
+            </svg>
+            <span>MAS Guide</span>
+          </a>
+          <p class="footer-desc">
+            A premium, high-performance documentation landing page for Microsoft Activation Scripts (MAS). Simple, safe, and open-source.
+          </p>
+        </div>
+
+        <!-- Quick Links Column -->
+        <div class="footer-col">
+          <h5 class="footer-col-title">Documentation</h5>
+          <ul class="footer-links">
+            <li><a href="#activation-methods" onclick="switchTab('ps')">PowerShell Method</a></li>
+            <li><a href="#activation-methods" onclick="switchTab('trad')">Traditional CMD Method</a></li>
+            <li><a href="#walkthrough">Process Walkthrough</a></li>
+            <li><a href="#notes-tips">Notes &amp; Troubleshooting</a></li>
+          </ul>
+        </div>
+
+        <!-- Resources Column -->
+        <div class="footer-col">
+          <h5 class="footer-col-title">Resources</h5>
+          <ul class="footer-links">
+            <li><a href="https://massgrave.dev/" target="_blank" rel="noopener">Official Website</a></li>
+            <li><a href="https://github.com/massgravel/Microsoft-Activation-Scripts" target="_blank" rel="noopener">GitHub Repository</a></li>
+            <li><a href="https://github.com/massgravel/Microsoft-Activation-Scripts/releases" target="_blank" rel="noopener">Releases &amp; Changelog</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-text">Documentation Repository • Microsoft Activation Scripts (MAS) Guide</p>
+        <p class="footer-subtext">This documentation page is compiled for educational reference. All product names, logos, and brands are property of their respective owners.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lightbox Modal -->
+  <div id="image-modal" class="modal" onclick="closeLightbox(event)">
+    <button class="modal-close" onclick="closeLightbox(event)" aria-label="Close image preview">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+    
+    <!-- Previous Button -->
+    <button id="modal-prev" class="modal-nav-btn prev-btn" aria-label="Previous image">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </button>
+    
+    <!-- Slider Container (stops click event propagation to prevent background close) -->
+    <div class="modal-slider-container" onclick="event.stopPropagation()">
+      <div id="modal-slider-track" class="modal-slider-track">
+        <img class="modal-slide" src="https://i.postimg.cc/3xRbg0Lc/Screenshot-2026-05-31-080557.png" alt="Step 1: PowerShell Command Entry">
+        <img class="modal-slide" src="https://i.postimg.cc/76dTQdDV/Screenshot-2026-05-31-081948.png" alt="Step 2: Menu & Method Selection">
+        <img class="modal-slide" src="https://i.postimg.cc/fb5L1F7c/Screenshot-2026-05-31-081629.png" alt="Step 3: Activation Script Progress">
+        <img class="modal-slide" src="https://i.postimg.cc/ZnWC8cdr/Screenshot-2026-05-31-081500.png" alt="Step 4: Successful Activation">
+      </div>
+    </div>
+    
+    <!-- Next Button -->
+    <button id="modal-next" class="modal-nav-btn next-btn" aria-label="Next image">
+      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
+  </div>
+
+  <!-- JavaScript Interaction -->
+  <script>
+    // Tab switching functionality
+    function switchTab(method) {
+      // Deactivate all tabs
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
+      });
+      document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.remove('active');
+      });
+
+      // Activate clicked tab
+      if (method === 'ps') {
+        document.getElementById('tab-ps').classList.add('active');
+        document.getElementById('tab-ps').setAttribute('aria-selected', 'true');
+        document.getElementById('content-ps').classList.add('active');
+      } else if (method === 'trad') {
+        document.getElementById('tab-trad').classList.add('active');
+        document.getElementById('tab-trad').setAttribute('aria-selected', 'true');
+        document.getElementById('content-trad').classList.add('active');
+      }
+    }
+
+    // Toggle Alternative Command Drawer
+    function toggleAltCmd() {
+      const btn = document.querySelector('.alt-toggle-btn');
+      const container = document.getElementById('alt-cmd-container');
+      btn.classList.toggle('active');
+      
+      if (container.classList.contains('open')) {
+        container.classList.remove('open');
+      } else {
+        container.classList.add('open');
+      }
+    }
+
+    // Copy to clipboard functionality
+    function copyCommand(elementId, buttonEl) {
+      const codeText = document.getElementById(elementId).innerText;
+      
+      navigator.clipboard.writeText(codeText).then(() => {
+        // Successful copy feedback
+        const originalHtml = buttonEl.innerHTML;
+        buttonEl.innerHTML = `
+          <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span style="color: #10b981;">Copied!</span>
+        `;
+        buttonEl.style.pointerEvents = 'none';
+
+        setTimeout(() => {
+          buttonEl.innerHTML = originalHtml;
+          buttonEl.style.pointerEvents = 'auto';
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy text: ', err);
+      });
+    }
+
+    // Lightbox Modal for Screenshots
+    const modalEl = document.getElementById('image-modal');
+    const sliderTrack = document.getElementById('modal-slider-track');
+    
+    const galleryImages = [
+      'https://i.postimg.cc/3xRbg0Lc/Screenshot-2026-05-31-080557.png',
+      'https://i.postimg.cc/76dTQdDV/Screenshot-2026-05-31-081948.png',
+      'https://i.postimg.cc/fb5L1F7c/Screenshot-2026-05-31-081629.png',
+      'https://i.postimg.cc/ZnWC8cdr/Screenshot-2026-05-31-081500.png'
+    ];
+    let currentImageIndex = 0;
+
+    function openLightbox(imgSrc) {
+      currentImageIndex = galleryImages.indexOf(imgSrc);
+      if (currentImageIndex === -1) currentImageIndex = 0;
+      
+      // Disable transition temporarily for instant positioning when opening
+      sliderTrack.style.transition = 'none';
+      updateLightboxImage();
+      
+      // Trigger a layout reflow so the browser registers the non-transitioned position immediately
+      sliderTrack.offsetHeight;
+      
+      // Restore standard smooth sliding transition
+      sliderTrack.style.transition = 'transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1)';
+      
+      modalEl.classList.add('open');
+      document.body.style.overflow = 'hidden'; // Lock page scrolling
+    }
+
+    function closeLightbox(event) {
+      // If event is passed, check if click target is the modal overlay itself or close button
+      if (event) {
+        const closeBtn = document.querySelector('.modal-close');
+        if (event.target !== modalEl && !closeBtn.contains(event.target)) {
+          return;
+        }
+      }
+      modalEl.classList.remove('open');
+      document.body.style.overflow = ''; // Restore page scrolling
+    }
+
+    // Move track left or right based on active index
+    function updateLightboxImage() {
+      sliderTrack.style.transform = `translateX(-${currentImageIndex * 100}%)`;
+    }
+
+    function navigateLightbox(direction) {
+      if (direction === 'prev') {
+        currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+      } else {
+        currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+      }
+      updateLightboxImage();
+    }
+
+    // Attach event listeners dynamically to gallery items
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      const imgSrc = item.getAttribute('data-src');
+      item.addEventListener('click', () => {
+        openLightbox(imgSrc);
+      });
+    });
+
+    // Navigation button clicks
+    document.getElementById('modal-prev').addEventListener('click', (e) => {
+      e.stopPropagation();
+      navigateLightbox('prev');
+    });
+
+    document.getElementById('modal-next').addEventListener('click', (e) => {
+      e.stopPropagation();
+      navigateLightbox('next');
+    });
+
+    // Keyboard support: Left/Right Arrow keys for navigation, Escape to close
+    document.addEventListener('keydown', (e) => {
+      if (!modalEl.classList.contains('open')) return;
+      
+      if (e.key === 'Escape') {
+        closeLightbox();
+      } else if (e.key === 'ArrowLeft') {
+        navigateLightbox('prev');
+      } else if (e.key === 'ArrowRight') {
+        navigateLightbox('next');
+      }
+    });
+
+    // Theme Selector Logic
+    const themeToggle = document.getElementById('theme-toggle');
+    
+    // Check initial preference
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      let newTheme = 'dark';
+      
+      if (currentTheme === 'dark') {
+        newTheme = 'light';
+      }
+      
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    });
+  </script>
+</body>
+</html>
