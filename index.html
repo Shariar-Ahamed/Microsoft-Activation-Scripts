@@ -29,7 +29,7 @@
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="M0 0h11.2v11.2H0zm12.8 0H24v11.2H12.8zM0 12.8h11.2V24H0zm12.8 0H24V24H12.8z"/>
         </svg>
-        <span>MAS Activation Guide</span>
+        <span>MAS <span class="logo-text-hide-mobile">Activation</span> Guide</span>
       </a>
       
       <div class="nav-actions">
@@ -670,6 +670,7 @@
       
       modalEl.classList.add('open');
       document.body.style.overflow = 'hidden'; // Lock page scrolling
+      document.documentElement.style.overflow = 'hidden'; // Lock page scrolling
     }
 
     function closeLightbox(event) {
@@ -682,6 +683,7 @@
       }
       modalEl.classList.remove('open');
       document.body.style.overflow = ''; // Restore page scrolling
+      document.documentElement.style.overflow = ''; // Restore page scrolling
     }
 
     // Move track left or right based on active index
