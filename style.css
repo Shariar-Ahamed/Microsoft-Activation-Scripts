@@ -493,6 +493,7 @@ main {
 .step-content {
   flex-grow: 1;
   padding-top: 0.35rem;
+  min-width: 0;
 }
 
 .step-title {
@@ -531,7 +532,7 @@ main {
 
 .code-lang {
   font-size: 0.75rem;
-  color: var(--text-muted);
+  color: #9ca3af;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -552,7 +553,7 @@ main {
 .copy-btn {
   background: none;
   border: none;
-  color: var(--text-muted);
+  color: #9ca3af;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -565,8 +566,8 @@ main {
 }
 
 .copy-btn:hover {
-  color: var(--text-primary);
-  background-color: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 .copy-btn svg {
@@ -665,12 +666,15 @@ main {
 }
 
 .gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
 }
 
 .gallery-item {
+  width: 100%;
+  max-width: 720px;
   background-color: var(--bg-surface);
   border: 1px solid var(--border-color);
   border-radius: 14px;
@@ -685,7 +689,7 @@ main {
 }
 
 .gallery-item:hover {
-  transform: translateY(-12px) scale(1.03);
+  transform: translateY(-8px) scale(1.015);
   border-color: var(--brand-primary);
   box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2), 0 0 25px rgba(var(--brand-primary-rgb), 0.2);
   z-index: 10;
@@ -695,7 +699,7 @@ main {
 .image-container {
   position: relative;
   width: 100%;
-  padding-top: calc(56.25% + 24px); /* Allocates exactly 24px height for macOS window controls header */
+  padding-top: 24px; /* Allocates exactly 24px height for macOS window controls header */
   background-color: #0d0e11;
   overflow: hidden;
 }
@@ -727,12 +731,9 @@ main {
 }
 
 .image-container img {
-  position: absolute;
-  top: 24px; /* Starts exactly below the header controls */
-  left: 0;
+  display: block;
   width: 100%;
-  height: calc(100% - 24px);
-  object-fit: cover;
+  height: auto;
   transition: transform var(--transition-normal), filter var(--transition-normal);
 }
 
