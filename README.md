@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <strong>🔗 Live Website: <a href="https://shariar-ahamed.github.io/Microsoft-Activation-Scripts/">shariar-ahamed.github.io/Microsoft-Activation-Scripts/</a></strong>
+  <strong>🔗 Live Website: <a href="https://microsoft-activation.vercel.app/">microsoft-activation.vercel.app</a></strong>
 </p>
 
 <p align="center">
